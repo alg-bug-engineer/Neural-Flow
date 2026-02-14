@@ -1,0 +1,39 @@
+.git
+.gitignore
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+config/feishu_config.json
+
+# Runtime data / logs
+data/*.db
+data/*.db-*
+data/archive/
+*.log
+logs/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

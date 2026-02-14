@@ -1,0 +1,7 @@
+- RSSHub：http://101.126.33.252:1200/twitter/user/yupi996/exclude_replies=1&include_rts=0
+    - 程序员鱼皮：http://101.126.33.252:1200/twitter/user/yupi996/exclude_replies=1&include_rts=0
+- 已有服务的 RSS
+    - Datawhale：https://wechat2rss.xlab.app/feed/4d620d988cb21cfeefd2263207221f0dc70df9ff.xml
+    - 量子位：https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml
+    - 新智元：https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml
+    - 机器之心：https://wechat2rss.xlab.app/feed/51e92aad2728acdd1fda7314be32b16639353001.xml

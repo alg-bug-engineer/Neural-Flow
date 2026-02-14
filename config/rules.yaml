@@ -1,0 +1,58 @@
+# Neural-Flow runtime rules
+
+global:
+  timezone: "Asia/Shanghai"
+  memory_retention_days: 30
+
+sources:
+  # Online live sources
+  - id: "twitter_yupi_live"
+    type: "rsshub"
+    url: "http://101.126.33.252:1200/twitter/user/yupi996/exclude_replies=1&include_rts=0"
+    fetch_interval: "30m"
+    weight: 12
+    max_items: 5
+
+  - id: "wechat_datawhale_live"
+    type: "wechat2rss"
+    url: "https://wechat2rss.xlab.app/feed/4d620d988cb21cfeefd2263207221f0dc70df9ff.xml"
+    fetch_interval: "45m"
+    weight: 10
+    max_items: 5
+
+  - id: "wechat_qbit_live"
+    type: "wechat2rss"
+    url: "https://wechat2rss.xlab.app/feed/7131b577c61365cb47e81000738c10d872685908.xml"
+    fetch_interval: "45m"
+    weight: 9
+    max_items: 5
+
+  - id: "wechat_xinzhiyuan_live"
+    type: "wechat2rss"
+    url: "https://wechat2rss.xlab.app/feed/ede30346413ea70dbef5d485ea5cbb95cca446e7.xml"
+    fetch_interval: "45m"
+    weight: 8
+    max_items: 5
+
+  - id: "wechat_jiqizhixin_live"
+    type: "wechat2rss"
+    url: "https://wechat2rss.xlab.app/feed/51e92aad2728acdd1fda7314be32b16639353001.xml"
+    fetch_interval: "45m"
+    weight: 7
+    max_items: 5
+
+platforms:
+  twitter:
+    enabled: true
+    style_prompt: "sharp_news"
+    max_posts_per_day: 5
+
+  wechat_blog:
+    enabled: true
+    schedule: "20:00"
+    style_prompt: "deep_tech"
+    min_word_count: 2000
+
+visual:
+  default_style: "cyberpunk, data flow, neon lights, 8k resolution"
+  default_ratio: "16:9"

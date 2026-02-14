@@ -1,0 +1,113 @@
+networks:
+  neural_net:
+    driver: bridge
+
+services:
+  pulse:
+    build:
+      context: .
+      dockerfile: services/pulse/Dockerfile
+    container_name: nf_pulse
+    volumes:
+      - ./config/rules.yaml:/app/config/rules.yaml
+      - ./data:/app/data
+    environment:
+      - RULES_PATH=/app/config/rules.yaml
+      - SENTRY_API=http://sentry:8000
+      - HIPPOCAMPUS_API=http://hippocampus:8000
+      - CORTEX_API=http://cortex:8000
+      - IRIS_API=http://iris:8000
+      - ARCHIVIST_API=http://archivist:8000
+      - LOG_DB_PATH=/app/data/system_logs.db
+    depends_on:
+      - sentry
+      - hippocampus
+      - cortex
+      - iris
+      - archivist
+    networks:
+      - neural_net
+    ports:
+      - "8001:8000"
+    restart: always
+
+  sentry:
+    build:
+      context: .
+      dockerfile: services/sentry/Dockerfile
+    container_name: nf_sentry
+    volumes:
+      - ./data:/app/data
+    environment:
+      - LOG_DB_PATH=/app/data/system_logs.db
+    networks:
+      - neural_net
+    ports:
+      - "8002:8000"
+
+  hippocampus:
+    build:
+      context: .
+      dockerfile: services/hippocampus/Dockerfile
+    container_name: nf_hippocampus
+    volumes:
+      - ./data:/app/data
+    environment:
+      - MEMORY_DB_PATH=/app/data/memory.db
+      - LOG_DB_PATH=/app/data/system_logs.db
+    networks:
+      - neural_net
+    ports:
+      - "8003:8000"
+
+  cortex:
+    build:
+      context: .
+      dockerfile: services/cortex/Dockerfile
+    container_name: nf_cortex
+    env_file: .env
+    volumes:
+      - ./config:/app/config:ro
+      - ./data:/app/data
+    environment:
+      - LOG_DB_PATH=/app/data/system_logs.db
+    networks:
+      - neural_net
+    ports:
+      - "8004:8000"
+
+  iris:
+    build:
+      context: .
+      dockerfile: services/iris/Dockerfile
+    container_name: nf_iris
+    env_file: .env
+    volumes:
+      - ./config:/app/config:ro
+      - ./data:/app/data
+    environment:
+      - LOG_DB_PATH=/app/data/system_logs.db
+    networks:
+      - neural_net
+    ports:
+      - "8005:8000"
+
+  archivist:
+    build:
+      context: .
+      dockerfile: services/archivist/Dockerfile
+    container_name: nf_archivist
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - ARCHIVE_DIR=/app/data/archive
+      - ARCHIVE_DB_PATH=/app/data/archive.db
+      - CORTEX_API=http://cortex:8000
+      - IRIS_API=http://iris:8000
+      - LOG_DB_PATH=/app/data/system_logs.db
+    networks:
+      - neural_net
+    ports:
+      - "8006:8000"
